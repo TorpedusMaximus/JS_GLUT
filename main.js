@@ -12,11 +12,13 @@ var _matrixProjection;
 var _matrixMovement;
 var _matrixView;
 
+var ID = -1;
+
 var _uv;
 var _sampler;
 var _cubeTexture;
 
-var rotationSpeed = 0.001;
+var rotationSpeed = 0.003;
 var zoomRatio = -6;
 var timeOld = 0;
 var X, Y, Z;
@@ -113,13 +115,16 @@ function gl_initShaders() {
 
 // bufory
 function gl_initBuffers() {
-    var triangleVertices = [
-        -1, -1, -1, 0, 1, 1,    // podstawa: błękitna
-        -1, -1, 1, 1, 0, 1,
-        1, -1, 1, 1, 1, 0,
-        1, -1, -1, 0, 1, 0,
+    var sqrt3 = Math.sqrt(3);
+    var sqrt3_6 = sqrt3 / 6;
+    var h = Math.sqrt(2 / 3) / 3;
 
-        0, 1, 0, 1, 0, 1       // szczyt
+    var triangleVertices = [
+        2, -4 * h, -4 * sqrt3_6, 1, 1, 0,      // podstawa: błękitna
+        -2, -4 * h, -4 * sqrt3_6, 0, 1, 0,
+        0, -4 * h, 4 / sqrt3, 0, 1, 1,
+
+        0, 8 * h, 0, 1, 0, 1       // szczyt
     ];
 
 
@@ -129,12 +134,10 @@ function gl_initBuffers() {
 
     var triangleFaces = [
         0, 1, 2,   //podstawa
-        0, 2, 3,
 
-        0, 1, 4,   //boki
-        1, 2, 4,
-        2, 3, 4,
-        3, 0, 4
+        0, 1, 3,   //boki
+        1, 2, 3,
+        2, 0, 3
     ];
 
     _triangleFacesBuffer = gl_ctx.createBuffer();
@@ -208,12 +211,15 @@ function gl_draw() {
 
         gl_ctx.bindBuffer(gl_ctx.ARRAY_BUFFER, _triangleVertexBuffer);
         gl_ctx.bindBuffer(gl_ctx.ELEMENT_ARRAY_BUFFER, _triangleFacesBuffer);
-        gl_ctx.drawElements(gl_ctx.TRIANGLES, 6 * 3, gl_ctx.UNSIGNED_SHORT, 0);
+        gl_ctx.drawElements(gl_ctx.TRIANGLES, 4 * 3, gl_ctx.UNSIGNED_SHORT, 0);
         gl_ctx.flush();
 
-        window.requestAnimationFrame(animate);
+        ID = window.requestAnimationFrame(animate);
     };
-
+    if (ID !== -1) {
+        window.cancelAnimationFrame(ID);
+        ID = -1;
+    }
     animate(0);
 
 }
