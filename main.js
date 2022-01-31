@@ -59,8 +59,6 @@ function gl_getContext(canvas) {
 }
 
 // shadery
-// shadery
-
 function gl_initShaders() {
     var vertexShader = "\n\
       attribute vec3 position;\n\
