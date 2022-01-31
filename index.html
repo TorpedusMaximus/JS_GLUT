@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html lang="pl">
+<head>
+    <title>Labolatorium 7 - WebGL</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="runWebGL()">
+<canvas id="glcanvas" width="500" height="300">
+    Brak wsparcia dla elementu HTML5 typu canvas.
+</canvas>
+<script src="main.js"></script>
+<script src="matrix.js"></script>
+
+<form>
+    <input type="checkbox" id="rotateX" name="rotateX" onclick="runWebGL()"> rotacja X
+    <input type="checkbox" id="rotateY" name="rotateY" onclick="runWebGL()"> rotacja Y
+    <input type="checkbox" id="rotateZ" name="rotateZ" onclick="runWebGL()"> rotacja Z
+</form>
+
+</body>
+</html>
