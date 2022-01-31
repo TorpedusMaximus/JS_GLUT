@@ -118,11 +118,11 @@ function gl_initBuffers() {
     var h = Math.sqrt(2 / 3) / 3;
 
     var triangleVertices = [
-        2, -4 * h, -4 * sqrt3_6, 1, 1, 0,      // podstawa: błękitna
+        2, -4 * h, -4 * sqrt3_6, 1, 0, 0,      // podstawa: błękitna
         -2, -4 * h, -4 * sqrt3_6, 0, 1, 0,
-        0, -4 * h, 4 / sqrt3, 0, 1, 1,
+        0, -4 * h, 4 / sqrt3, 0, 0, 1,
 
-        0, 8 * h, 0, 1, 0, 1       // szczyt
+        0, 8 * h, 0, 0, 0, 0       // szczyt
     ];
 
 
